@@ -1,14 +1,14 @@
 import os
 
 html_template = """<!DOCTYPE html>
-<html lang="de" class="light">
+<html lang="de" class="light scroll-smooth">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Ursula - 60 Jahre in Bildern</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
         tailwind.config = {
@@ -37,10 +37,10 @@ html_template = """<!DOCTYPE html>
         }
     </script>
     <style>
-        .font-headline-sm { font-family: 'Playfair Display', serif; }
-        .font-headline-md { font-family: 'Playfair Display', serif; }
-        .font-display-lg { font-family: 'Playfair Display', serif; }
-        .font-display-lg-mobile { font-family: 'Playfair Display', serif; }
+        .font-headline-sm { font-family: 'Outfit', sans-serif; }
+        .font-headline-md { font-family: 'Outfit', sans-serif; }
+        .font-display-lg { font-family: 'Outfit', sans-serif; }
+        .font-display-lg-mobile { font-family: 'Outfit', sans-serif; }
         .font-body-md { font-family: 'Geist', sans-serif; }
         .font-body-lg { font-family: 'Geist', sans-serif; }
         .font-label-sm { font-family: 'Geist', sans-serif; }
@@ -49,6 +49,7 @@ html_template = """<!DOCTYPE html>
         .image-card {
             transition: box-shadow 0.4s ease, transform 0.4s ease;
             box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            cursor: zoom-in;
         }
         .group:hover .image-card {
             box-shadow: 0 12px 40px rgba(0,0,0,0.08);
@@ -70,12 +71,12 @@ html_template = """<!DOCTYPE html>
 <body class="bg-surface-container-lowest text-on-surface font-body-md antialiased min-h-screen flex flex-col">
 
     <!-- Hero Section (Angepasst an Design) -->
-    <section class="relative w-full h-[80vh] flex items-center justify-center overflow-hidden">
+    <section class="relative w-full h-screen flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 z-0 bg-cover bg-center" style="background-image: url('29.jpg');"></div>
         <div class="absolute inset-0 z-10 bg-gradient-to-b from-transparent to-tertiary/60"></div>
         <div class="relative z-20 text-center flex flex-col items-center px-margin-mobile md:px-margin-desktop mt-32">
             <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-[80px] tracking-[0.2em] text-on-primary uppercase mb-6 drop-shadow-lg">URSULA</h1>
-            <p class="font-headline-md text-headline-md text-on-primary italic mb-12 drop-shadow-md">60 Jahre in Bildern</p>
+            <p class="font-headline-md text-headline-md text-on-primary font-light mb-12 drop-shadow-md tracking-wider">60 Jahre in Bildern</p>
             <a href="#gallery" class="border border-on-primary/60 text-on-primary px-8 py-4 rounded-lg hover:bg-on-primary hover:text-primary transition-all duration-300 font-label-sm text-[13px] uppercase tracking-[0.15em] backdrop-blur-sm">
                 Zeitreise starten
             </a>
@@ -104,6 +105,12 @@ html_template = """<!DOCTYPE html>
             </div>
         </div>
     </footer>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="fixed inset-0 z-50 bg-black/95 hidden flex-col items-center justify-center opacity-0 transition-opacity duration-300 backdrop-blur-md">
+        <button id="lightbox-close" class="absolute top-6 right-6 text-white/70 text-6xl font-light hover:text-white transition-colors leading-none cursor-pointer focus:outline-none">&times;</button>
+        <img id="lightbox-img" src="" alt="" class="max-h-[90vh] max-w-[90vw] object-contain rounded-lg shadow-2xl scale-95 transition-transform duration-300">
+    </div>
 
     <!-- App JS -->
     <script src="js/app.js"></script>
