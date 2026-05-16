@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html class="light" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ursula - 60 Jahre in Bildern</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#444748",
+                        "surface-tint": "#5f5e5e",
+                        "surface-container": "#eeeeee",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#1c1b1a",
+                        "on-background": "#1a1c1c",
+                        "tertiary": "#000000",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "surface": "#f9f9f9",
+                        "background": "#f9f9f9",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#e2e2e2",
+                        "tertiary-fixed": "#e6e2df",
+                        "on-primary-fixed-variant": "#474746",
+                        "on-secondary-container": "#646464",
+                        "outline": "#747878",
+                        "tertiary-fixed-dim": "#cac6c4",
+                        "secondary-fixed": "#e3e2e2",
+                        "on-primary-fixed": "#1c1b1b",
+                        "secondary-fixed-dim": "#c7c6c6",
+                        "secondary": "#5e5e5e",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#858383",
+                        "on-tertiary-fixed-variant": "#484645",
+                        "primary-fixed": "#e5e2e1",
+                        "inverse-primary": "#c8c6c5",
+                        "primary-container": "#1c1b1b",
+                        "surface-dim": "#dadada",
+                        "inverse-surface": "#2f3131",
+                        "inverse-on-surface": "#f0f1f1",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f9f9f9",
+                        "on-tertiary-fixed": "#1c1b1a",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#464747",
+                        "primary": "#000000",
+                        "surface-variant": "#e2e2e2",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "secondary-container": "#e3e2e2",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#1a1c1c",
+                        "surface-container-high": "#e8e8e8",
+                        "on-tertiary-container": "#868382",
+                        "outline-variant": "#c4c7c7",
+                        "surface-container-low": "#f3f3f4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1200px",
+                        "vertical-line-width": "1px",
+                        "margin-desktop": "64px",
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Geist"],
+                        "label-sm": ["Geist"],
+                        "body-lg": ["Geist"],
+                        "headline-md": ["Playfair Display"],
+                        "display-lg": ["Playfair Display"],
+                        "headline-sm": ["Playfair Display"],
+                        "display-lg-mobile": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "400" }],
+                        "display-lg": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "headline-sm": ["24px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "display-lg-mobile": ["40px", { "lineHeight": "1.2", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .font-headline-sm { font-family: 'Playfair Display', serif; }
+        .font-headline-md { font-family: 'Playfair Display', serif; }
+        .font-display-lg { font-family: 'Playfair Display', serif; }
+        .font-display-lg-mobile { font-family: 'Playfair Display', serif; }
+        .font-body-md { font-family: 'Geist', sans-serif; }
+        .font-body-lg { font-family: 'Geist', sans-serif; }
+        .font-label-sm { font-family: 'Geist', sans-serif; }
+        
+        /* Subtle interactive micro-depth */
+        .image-card {
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        }
+        .image-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md antialiased min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface/80 dark:bg-surface/80 backdrop-blur-md full-width top-0 sticky border-b border-outline-variant/30 z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto py-4">
+<nav class="hidden md:flex gap-8">
+<a class="text-primary dark:text-on-primary font-bold border-b-2 border-primary font-label-sm text-label-sm uppercase hover:text-primary dark:hover:text-on-primary transition-colors duration-300" href="#">Gallery</a>
+<a class="text-secondary dark:text-secondary-fixed-dim font-medium font-label-sm text-label-sm uppercase hover:text-primary dark:hover:text-on-primary transition-colors duration-300" href="#">Eras</a>
+<a class="text-secondary dark:text-secondary-fixed-dim font-medium font-label-sm text-label-sm uppercase hover:text-primary dark:hover:text-on-primary transition-colors duration-300" href="#">Legacy</a>
+</nav>
+<div class="font-display-lg text-display-lg tracking-[0.2em] text-primary dark:text-on-primary uppercase text-center flex-1">
+                URSULA
+            </div>
+<div class="hidden md:flex">
+<button class="border border-outline px-6 py-3 rounded text-primary hover:bg-surface-container-low hover:border-primary transition-all duration-300 font-label-sm text-label-sm uppercase">Zeitreise</button>
+</div>
+</div>
+</header>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="relative w-full h-[80vh] flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 z-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA-QpLSyYaHHpYMod1cQ_M8T9Ta6a70eorD96BqQp3miMMEEEO0GSgtHV1V_ygaIRDt_Eh_zgOSTXjsQlkufAQV4bmypva4e-rtZs0s1PnBApN6fwfkeQVUOqFJK_8gB5k3Y_fG1fhL4KGsKqErByiQq3dH2RrzS6TKzzYOSjqWAQIDmCNGUl042DPo03Mez9NuLGXobZvecZDX9FeJXDm-rO3sAQYU_mEoYdTxBrlLW5FuLvlOuWQBqOlELP3FHxhVFdvfki0AzliI');"></div>
+<div class="absolute inset-0 z-10 bg-gradient-to-b from-transparent to-tertiary/60"></div>
+<div class="relative z-20 text-center flex flex-col items-center px-margin-mobile md:px-margin-desktop mt-32">
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg tracking-[0.2em] text-on-primary uppercase mb-6 drop-shadow-lg">URSULA</h1>
+<p class="font-headline-md text-headline-md text-on-primary italic mb-12 drop-shadow-md">60 Jahre in Bildern</p>
+<button class="border border-on-primary/60 text-on-primary px-8 py-4 rounded hover:bg-on-primary hover:text-primary transition-all duration-300 font-label-sm text-label-sm uppercase tracking-widest backdrop-blur-sm">
+                    Zeitreise starten
+                </button>
+</div>
+</section>
+<!-- Vertical Timeline Gallery -->
+<section class="relative w-full max-w-container-max mx-auto py-32 px-margin-mobile md:px-margin-desktop">
+<!-- Central Line -->
+<div class="absolute left-1/2 top-0 bottom-0 w-vertical-line-width bg-outline-variant/50 transform -translate-x-1/2 hidden md:block"></div>
+<!-- Timeline Item 1 -->
+<div class="relative flex flex-col md:flex-row items-center justify-center gap-16 mb-32 group">
+<!-- Marker -->
+<div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border border-outline-variant bg-surface-container-lowest z-10 transition-colors duration-300 group-hover:bg-primary group-hover:border-primary"></div>
+<div class="w-full md:w-1/2 md:pr-16 flex justify-end">
+<div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
+<img alt="First Memories" class="w-full h-auto rounded-lg object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDisUreNnKf8rwvkt_jtmyX0T2tlzDrXorfHXamenGKJDFdaQJDbxJAGdDhmO6N7gPkjqAK91GLhCps-ga3K4vHRYrAeq8f3-NlfVAmjTzHwPOmO-but9R-i8ctN2CTBLAki-_WTmUVITaqOVmVIvV6jO9nmFLCQJ-evhToY1f0ADKTGsByUdt1bitVmg2HP1TOe3MV5nkd9UVQxgjZwkcScaU1v0ZHxw2yi0jiutannRJpG8ADgg_S7rLRjo4qHCbZudplcZT_6Bx"/>
+</div>
+</div>
+<div class="w-full md:w-1/2 md:pl-16 text-center md:text-left">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest block mb-4">1964 — 1980</span>
+<h2 class="font-headline-sm text-headline-sm text-primary mb-6">Erste Erinnerungen</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md mx-auto md:mx-0">
+                        Ein Rückblick auf die frühen Jahre, geprägt von familiärer Verbundenheit und den ersten kleinen Wundern des Lebens. Diese Sammlung bewahrt die Momente, die den Grundstein für alles Kommende legten.
+                    </p>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative flex flex-col md:flex-row-reverse items-center justify-center gap-16 mb-16 group">
+<!-- Marker -->
+<div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border border-outline-variant bg-surface-container-lowest z-10 transition-colors duration-300 group-hover:bg-primary group-hover:border-primary"></div>
+<div class="w-full md:w-1/2 md:pl-16 flex justify-start">
+<div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
+<img alt="Adventures and Growth" class="w-full h-auto rounded-lg object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdH-jIThXhT_ZES27qWQEqNOgZQP27GMX9qHc6KIsRj8M5qsrYVS2hk-EPNOONb4EYwaD8ns8Ly7igrURmEFEaWMkxy0rOFyLwnqTIbYCBnLgOkNTKNU_7K4JLYAs_89htCmGFKRL60O0j47TIQtRXZQVPJuQHDnuWz3-oiFEEzQnwz8CSAKYx5xXMQm0womHo80FeX-iNJR969ql2bA3dnrQh1cpctuiTuvhi97owYXUgJ7wKtk18pV1L4Hvfq7JxABipH-Y0s_6e"/>
+</div>
+</div>
+<div class="w-full md:w-1/2 md:pr-16 text-center md:text-right">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest block mb-4">1980 — 2000</span>
+<h2 class="font-headline-sm text-headline-sm text-primary mb-6">Entdeckungsreisen</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md mx-auto md:mx-0 md:ml-auto">
+                        Jahre des Wachstums, der weiten Reisen und der persönlichen Entfaltung. Jedes Bild erzählt von Mut, neuen Perspektiven und der unstillbaren Neugier auf die Welt.
+                    </p>
+</div>
+</div>
+<div class="text-center mt-32">
+<button class="border border-outline px-8 py-4 rounded text-primary hover:bg-surface-container-low transition-all duration-300 font-label-sm text-label-sm uppercase tracking-widest">
+                    Weiter blättern
+                </button>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface dark:bg-background full-width border-t border-outline-variant/30">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-desktop py-12 max-w-container-max mx-auto gap-8">
+<div class="font-headline-sm text-headline-sm text-primary dark:text-on-primary tracking-widest uppercase">
+                URSULA
+            </div>
+<nav class="flex gap-6">
+<a class="font-label-sm text-label-sm text-secondary dark:text-secondary-fixed-dim uppercase hover:text-primary dark:hover:text-on-primary transition-colors ease-in-out duration-200" href="#">Imprint</a>
+<a class="font-label-sm text-label-sm text-secondary dark:text-secondary-fixed-dim uppercase hover:text-primary dark:hover:text-on-primary transition-colors ease-in-out duration-200" href="#">Privacy</a>
+<a class="font-label-sm text-label-sm text-secondary dark:text-secondary-fixed-dim uppercase hover:text-primary dark:hover:text-on-primary transition-colors ease-in-out duration-200" href="#">Family Archive</a>
+</nav>
+<div class="font-body-md text-body-md text-secondary dark:text-secondary-fixed-dim text-sm">
+                © 1964—2024 Digital Heirloom. All rights reserved.
+            </div>
+</div>
+</footer>
+</body></html>

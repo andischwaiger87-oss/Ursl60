@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, observerOptions);
 
     // Alle Timeline-Elemente beobachten
-    const timelineItems = document.querySelectorAll('.timeline-item');
+    const timelineItems = document.querySelectorAll('.scroll-reveal');
     timelineItems.forEach(item => {
         observer.observe(item);
     });
