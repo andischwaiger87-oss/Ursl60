@@ -1,7 +1,8 @@
 :root {
   --bg-color: #ffffff;
-  --text-main: #111111;
-  --text-muted: #777777;
+  --text-main: #1a1a1a;
+  --text-muted: #666666;
+  --line-color: #e5e5e5;
   --font-serif: 'Lora', serif;
   --font-sans: 'Inter', sans-serif;
 }
@@ -25,7 +26,7 @@ body {
 }
 
 /* =========================================
-   Hero Section (Pixieset Style)
+   Hero Section
    ========================================= */
 .hero {
   height: 100vh;
@@ -34,12 +35,7 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  
-  /* ========================================================
-     WICHTIG: HIER DAS COVER-BILD AUSTAUSCHEN
-     Zum Beispiel: url('../dein-eigenes-titelbild.jpg')
-     ======================================================== */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url('../29.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../29.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -54,80 +50,159 @@ body {
 
 .hero h1 {
   font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 3.5rem;
-  letter-spacing: 0.25em; /* Gesperrter, eleganter Text */
+  font-weight: 300;
+  font-size: 4.5rem;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  margin-bottom: 2rem;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  margin-bottom: 0.5rem;
 }
 
+.hero-subtitle {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  margin-bottom: 3rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Micro-Interaction Button */
 .view-gallery {
   display: inline-block;
   color: #ffffff;
   text-decoration: none;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  padding: 14px 28px;
-  transition: all 0.4s ease;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 16px 36px;
+  border-radius: 40px; /* Leicht abgerundet, wirkt nahbarer */
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .view-gallery:hover {
   background-color: #ffffff;
-  color: #111111;
+  color: #1a1a1a;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
 
 /* =========================================
-   Gallery Section
+   Timeline (Pixieset Minimalist Layout)
    ========================================= */
-.gallery-container {
-  max-width: 1000px;
+.timeline-container {
+  max-width: 1200px;
   margin: 0 auto;
   padding: 8rem 2rem;
+  position: relative;
 }
 
-.gallery-item {
-  margin-bottom: 8rem;
-  text-align: center;
-  opacity: 0;
+/* Minimalist Center Line */
+.timeline-container::after {
+  content: '';
+  position: absolute;
+  width: 1px;
+  background-color: var(--line-color);
+  top: 8rem;
+  bottom: 8rem;
+  left: 50%;
+  margin-left: 0;
+}
+
+.timeline-item {
+  padding: 0 80px;
+  position: relative;
+  width: 50%;
+  margin-bottom: 6rem;
+  opacity: 0; 
   transform: translateY(40px);
   transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.gallery-item.show {
+.timeline-item.show {
   opacity: 1;
   transform: translateY(0);
 }
 
-.gallery-img {
-  width: 100%;
-  max-width: 900px;
-  height: auto;
-  display: block;
-  margin: 0 auto 2rem auto;
+.timeline-item.left {
+  left: 0;
+  text-align: right;
 }
 
-.gallery-caption {
-  font-family: var(--font-serif);
+.timeline-item.right {
+  left: 50%;
+  text-align: left;
+}
+
+/* Elegant Timeline Dots */
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: var(--bg-color);
+  border: 2px solid #cccccc;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  z-index: 1;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.timeline-item.left::after {
+  right: -5px;
+}
+
+.timeline-item.right::after {
+  left: -4px;
+}
+
+/* Micro-interaction: Timeline Dot wächst bei Hover */
+.timeline-item:hover::after {
+  border-color: var(--text-main);
+  background-color: var(--text-main);
+  transform: translateY(-50%) scale(1.5);
+}
+
+.timeline-content {
+  position: relative;
+  display: inline-block;
+  max-width: 480px;
+}
+
+.timeline-img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px; /* Leicht abgerundet */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
+}
+
+/* Micro-interaction: Smoother Bild-Zoom & Schatten */
+.timeline-item:hover .timeline-img {
+  transform: scale(1.02) translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+.caption {
+  margin-top: 1.5rem;
 }
 
 .caption-date {
   display: block;
-  font-size: 1.1rem;
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
   color: var(--text-main);
-  margin-bottom: 0.3rem;
-  font-style: italic;
+  margin-bottom: 0.4rem;
 }
 
 .caption-desc {
   display: block;
   font-family: var(--font-sans);
-  font-size: 0.8rem;
+  font-size: 1rem; /* Größer für klare Lesbarkeit */
   color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  line-height: 1.6;
 }
 
 /* =========================================
@@ -136,37 +211,50 @@ body {
 footer {
   text-align: center;
   padding: 6rem 2rem;
-  background-color: var(--bg-color);
-  color: var(--text-main);
-  border-top: 1px solid #f0f0f0;
+  background-color: #fafafa;
+  border-top: 1px solid var(--line-color);
 }
 
 footer h2 {
-  font-family: var(--font-sans);
-  font-size: 1.5rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 2rem;
   margin-bottom: 1rem;
+  color: var(--text-main);
 }
 
 footer p {
-  font-family: var(--font-serif);
   color: var(--text-muted);
-  font-style: italic;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 /* =========================================
    Responsive
    ========================================= */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
   .hero h1 {
-    font-size: 2.2rem;
-    letter-spacing: 0.15em;
+    font-size: 3rem;
   }
-  .gallery-container {
-    padding: 4rem 1.5rem;
+  .timeline-container::after {
+    left: 20px;
   }
-  .gallery-item {
+  .timeline-item {
+    width: 100%;
+    padding-left: 60px;
+    padding-right: 0px;
     margin-bottom: 5rem;
+    text-align: left;
+  }
+  .timeline-content {
+    max-width: 100%;
+  }
+  .timeline-item.right {
+    left: 0%;
+  }
+  .timeline-item.left::after, .timeline-item.right::after {
+    left: 15px;
+    right: auto;
   }
 }

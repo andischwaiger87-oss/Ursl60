@@ -17,9 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    // Alle Galerie-Elemente beobachten
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    galleryItems.forEach(item => {
+    // Alle Timeline-Elemente beobachten
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    timelineItems.forEach(item => {
         observer.observe(item);
     });
 });
