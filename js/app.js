@@ -40,7 +40,7 @@ const renderTimeline = () => {
                 </div>
             </div>
             <button onclick="openMemoryModal('${imgObj.id}')" class="mt-8 font-label-sm text-[11px] uppercase tracking-[0.15em] text-secondary hover:text-primary transition-colors flex items-center gap-3 group">
-                <span class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center group-hover:border-primary transition-colors">+</span>
+                <span class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center group-hover:border-primary transition-colors text-[20px] font-light pb-[2px]">+</span>
                 Erinnerung hinzufügen
             </button>
         `;
