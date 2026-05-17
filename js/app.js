@@ -398,15 +398,7 @@ const initScrollObserver = () => {
         });
     }, observerOptions);
 
-    // Initialisierung erfolgt nun im DOM nachdem fetch() durch ist. Da es async ist, 
-    // brauchen wir eine regelmäßige Prüfung oder rufen es nach renderTimeline auf.
-    // Ein MutationObserver ist robuster, wenn DOM sich ändert:
-    const mo = new MutationObserver(() => {
-        document.querySelectorAll('.scroll-reveal:not(.show)').forEach(item => {
-            observer.observe(item);
-        });
-    });
-    mo.observe(document.body, { childList: true, subtree: true });
+    document.querySelectorAll('.scroll-reveal').forEach(item => observer.observe(item));
 };
 
 const initInteractions = () => {
