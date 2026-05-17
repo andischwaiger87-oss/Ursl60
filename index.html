@@ -64,13 +64,24 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Memory Entry Animation */
+        .memory-entry {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-surface-container-lowest text-on-surface font-body-md antialiased min-h-screen flex flex-col">
 
-    <!-- Hero Section (Angepasst an Design) -->
+    <!-- Hero Section -->
     <section class="relative w-full h-screen flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 z-0 bg-cover bg-center" style="background-image: url('ursula.jpg');"></div>
+        <div class="absolute inset-0 z-0 bg-cover bg-center" style="background-image: url('29.jpg');"></div>
         <div class="absolute inset-0 z-10 bg-gradient-to-b from-transparent to-tertiary/60"></div>
         <div class="relative z-20 text-center flex flex-col items-center px-margin-mobile md:px-margin-desktop mt-32">
             <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-[80px] tracking-[0.2em] text-on-primary uppercase mb-6 drop-shadow-lg">URSULA</h1>
@@ -87,529 +98,12 @@
             <!-- Central Line -->
             <div class="absolute left-1/2 top-0 bottom-0 w-vertical-line-width bg-outline-variant/50 transform -translate-x-1/2 hidden md:block"></div>
 
+            <!-- Dynamischer Timeline Container -->
+            <div id="timeline-container"></div>
             
-            <!-- Timeline Item 1 (Left) -->
-            <div class="relative flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pr-16 flex justify-end">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 1" class="w-full h-auto rounded-lg object-cover" src="01.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pl-16 text-center md:text-left mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 1</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
+            <div id="loading-indicator" class="text-center text-secondary font-label-sm uppercase tracking-widest my-16">
+                Lade Bilder und Erinnerungen...
             </div>
-
-            <!-- Timeline Item 2 (Right) -->
-            <div class="relative flex flex-col md:flex-row-reverse items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pl-16 flex justify-start">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 2" class="w-full h-auto rounded-lg object-cover" src="02.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pr-16 text-center md:text-right mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 2</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 md:ml-auto leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 3 (Left) -->
-            <div class="relative flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pr-16 flex justify-end">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 3" class="w-full h-auto rounded-lg object-cover" src="03.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pl-16 text-center md:text-left mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 3</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 4 (Right) -->
-            <div class="relative flex flex-col md:flex-row-reverse items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pl-16 flex justify-start">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 4" class="w-full h-auto rounded-lg object-cover" src="04.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pr-16 text-center md:text-right mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 4</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 md:ml-auto leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 5 (Left) -->
-            <div class="relative flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pr-16 flex justify-end">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 5" class="w-full h-auto rounded-lg object-cover" src="05.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pl-16 text-center md:text-left mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 5</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 6 (Right) -->
-            <div class="relative flex flex-col md:flex-row-reverse items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pl-16 flex justify-start">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 6" class="w-full h-auto rounded-lg object-cover" src="06.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pr-16 text-center md:text-right mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 6</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 md:ml-auto leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 7 (Left) -->
-            <div class="relative flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pr-16 flex justify-end">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 7" class="w-full h-auto rounded-lg object-cover" src="07.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pl-16 text-center md:text-left mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 7</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 8 (Right) -->
-            <div class="relative flex flex-col md:flex-row-reverse items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pl-16 flex justify-start">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 8" class="w-full h-auto rounded-lg object-cover" src="08.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pr-16 text-center md:text-right mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 8</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 md:ml-auto leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 9 (Left) -->
-            <div class="relative flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pr-16 flex justify-end">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 9" class="w-full h-auto rounded-lg object-cover" src="09.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pl-16 text-center md:text-left mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 9</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 10 (Right) -->
-            <div class="relative flex flex-col md:flex-row-reverse items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pl-16 flex justify-start">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 10" class="w-full h-auto rounded-lg object-cover" src="10.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pr-16 text-center md:text-right mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 10</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 md:ml-auto leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 11 (Left) -->
-            <div class="relative flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pr-16 flex justify-end">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 11" class="w-full h-auto rounded-lg object-cover" src="11.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pl-16 text-center md:text-left mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 11</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 12 (Right) -->
-            <div class="relative flex flex-col md:flex-row-reverse items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pl-16 flex justify-start">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 12" class="w-full h-auto rounded-lg object-cover" src="12.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pr-16 text-center md:text-right mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 12</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 md:ml-auto leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 13 (Left) -->
-            <div class="relative flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pr-16 flex justify-end">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 13" class="w-full h-auto rounded-lg object-cover" src="13.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pl-16 text-center md:text-left mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 13</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 14 (Right) -->
-            <div class="relative flex flex-col md:flex-row-reverse items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pl-16 flex justify-start">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 14" class="w-full h-auto rounded-lg object-cover" src="14.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pr-16 text-center md:text-right mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 14</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 md:ml-auto leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 15 (Left) -->
-            <div class="relative flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pr-16 flex justify-end">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 15" class="w-full h-auto rounded-lg object-cover" src="15.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pl-16 text-center md:text-left mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 15</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 16 (Right) -->
-            <div class="relative flex flex-col md:flex-row-reverse items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pl-16 flex justify-start">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 16" class="w-full h-auto rounded-lg object-cover" src="16.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pr-16 text-center md:text-right mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 16</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 md:ml-auto leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 17 (Left) -->
-            <div class="relative flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pr-16 flex justify-end">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 17" class="w-full h-auto rounded-lg object-cover" src="17.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pl-16 text-center md:text-left mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 17</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 18 (Right) -->
-            <div class="relative flex flex-col md:flex-row-reverse items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pl-16 flex justify-start">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 18" class="w-full h-auto rounded-lg object-cover" src="18.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pr-16 text-center md:text-right mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 18</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 md:ml-auto leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 19 (Left) -->
-            <div class="relative flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pr-16 flex justify-end">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 19" class="w-full h-auto rounded-lg object-cover" src="19.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pl-16 text-center md:text-left mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 19</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 20 (Right) -->
-            <div class="relative flex flex-col md:flex-row-reverse items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pl-16 flex justify-start">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 20" class="w-full h-auto rounded-lg object-cover" src="20.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pr-16 text-center md:text-right mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 20</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 md:ml-auto leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 21 (Left) -->
-            <div class="relative flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pr-16 flex justify-end">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 21" class="w-full h-auto rounded-lg object-cover" src="21.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pl-16 text-center md:text-left mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 21</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 22 (Right) -->
-            <div class="relative flex flex-col md:flex-row-reverse items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pl-16 flex justify-start">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 22" class="w-full h-auto rounded-lg object-cover" src="22.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pr-16 text-center md:text-right mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 22</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 md:ml-auto leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 23 (Left) -->
-            <div class="relative flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pr-16 flex justify-end">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 23" class="w-full h-auto rounded-lg object-cover" src="23.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pl-16 text-center md:text-left mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 23</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 24 (Right) -->
-            <div class="relative flex flex-col md:flex-row-reverse items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pl-16 flex justify-start">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 24" class="w-full h-auto rounded-lg object-cover" src="24.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pr-16 text-center md:text-right mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 24</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 md:ml-auto leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 25 (Left) -->
-            <div class="relative flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pr-16 flex justify-end">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 25" class="w-full h-auto rounded-lg object-cover" src="25.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pl-16 text-center md:text-left mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 25</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 26 (Right) -->
-            <div class="relative flex flex-col md:flex-row-reverse items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pl-16 flex justify-start">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 26" class="w-full h-auto rounded-lg object-cover" src="26.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pr-16 text-center md:text-right mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 26</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 md:ml-auto leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 27 (Left) -->
-            <div class="relative flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pr-16 flex justify-end">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 27" class="w-full h-auto rounded-lg object-cover" src="27.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pl-16 text-center md:text-left mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 27</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 28 (Right) -->
-            <div class="relative flex flex-col md:flex-row-reverse items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pl-16 flex justify-start">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 28" class="w-full h-auto rounded-lg object-cover" src="28.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pr-16 text-center md:text-right mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 28</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 md:ml-auto leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Timeline Item 29 (Left) -->
-            <div class="relative flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 mb-24 md:mb-32 group scroll-reveal">
-                <!-- Marker -->
-                <div class="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface-container-lowest z-10 transition-all duration-500 group-hover:scale-150 group-hover:bg-primary group-hover:border-primary shadow-sm"></div>
-                <div class="w-full md:w-1/2 md:pr-16 flex justify-end">
-                    <div class="w-full max-w-md rounded-xl overflow-hidden image-card border border-outline-variant/20 bg-surface-container-lowest p-2">
-                        <img alt="Erinnerung 29" class="w-full h-auto rounded-lg object-cover" src="29.jpg">
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 md:pl-16 text-center md:text-left mt-6 md:mt-0">
-                    <span class="font-label-sm text-[12px] text-secondary uppercase tracking-[0.15em] block mb-4">Jahr / Ereignis</span>
-                    <h2 class="font-headline-sm text-[28px] text-primary mb-4">Erinnerung 29</h2>
-                    <p class="font-body-md text-[15px] text-on-surface-variant max-w-md mx-auto md:mx-0 leading-relaxed">
-                        Hier ist Platz für eine kurze Geschichte oder liebe Worte zu diesem Foto.
-                    </p>
-                </div>
-            </div>
-
 
         </section>
     </main>
@@ -632,7 +126,36 @@
         <img id="lightbox-img" src="" alt="" class="max-h-[85vh] max-w-[90vw] object-contain rounded shadow-2xl scale-95 transition-all duration-700 ease-out">
     </div>
 
-    <!-- App JS -->
+    <!-- Modal für neue Erinnerung -->
+    <div id="memory-modal" class="fixed inset-0 z-50 bg-[#0a0a0a]/60 hidden flex flex-col items-center justify-center opacity-0 transition-opacity duration-300 backdrop-blur-md">
+        <div class="bg-surface-container-lowest p-8 md:p-12 rounded-xl shadow-2xl max-w-lg w-full mx-4 relative transform scale-95 transition-transform duration-300">
+            <button id="memory-modal-close" class="absolute top-6 right-6 text-secondary hover:text-primary transition-colors text-3xl font-light leading-none focus:outline-none">&times;</button>
+            <h3 class="font-headline-sm text-2xl mb-2 text-primary">Erinnerung teilen</h3>
+            <p class="font-body-md text-secondary mb-8 text-[15px]">Hinterlasse eine persönliche Nachricht, Anekdote oder einen Glückwunsch zu diesem Foto.</p>
+            
+            <form id="memory-form" class="flex flex-col gap-5">
+                <input type="hidden" id="memory-image-id">
+                
+                <div>
+                    <label for="author-name" class="block font-label-sm text-[11px] uppercase tracking-widest text-secondary mb-2">Dein Name</label>
+                    <input type="text" id="author-name" required class="w-full border border-outline-variant/50 rounded-lg p-3 font-body-md text-primary bg-surface-container-lowest focus:outline-none focus:border-primary transition-colors" placeholder="Max Mustermann">
+                </div>
+                
+                <div>
+                    <label for="memory-text" class="block font-label-sm text-[11px] uppercase tracking-widest text-secondary mb-2">Deine Nachricht</label>
+                    <textarea id="memory-text" required rows="5" class="w-full border border-outline-variant/50 rounded-lg p-3 font-body-md text-primary bg-surface-container-lowest focus:outline-none focus:border-primary transition-colors resize-none" placeholder="Weißt du noch, als wir..."></textarea>
+                </div>
+                
+                <button type="submit" id="memory-submit-btn" class="mt-2 bg-primary text-on-primary hover:bg-on-surface-variant transition-colors font-label-sm uppercase tracking-[0.15em] py-4 rounded-lg flex justify-center items-center">
+                    <span id="submit-text">Speichern</span>
+                    <span id="submit-spinner" class="hidden ml-3 w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>
