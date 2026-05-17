@@ -1,7 +1,7 @@
 // --- Supabase Konfiguration ---
 const SUPABASE_URL = 'https://hbhchaylifgwulzxyygw.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhiaGNoYXlsaWZnd3Vsenh5eWd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5NzEyNzgsImV4cCI6MjA5NDU0NzI3OH0.lYSMZBdgSMgTg-Qhwkr__fqxR5ntHmlJG0H9ACSVEWw';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Timeline dynamisch rendern
@@ -79,7 +79,7 @@ const renderTimeline = () => {
 // --- Supabase: Erinnerungen laden ---
 const fetchMemories = async () => {
     try {
-        const { data: memories, error } = await supabase
+        const { data: memories, error } = await supabaseClient
             .from('memories')
             .select('*')
             .order('created_at', { ascending: true });
@@ -180,7 +180,7 @@ const initMemoryModal = () => {
 
         try {
             // In Supabase einfügen
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('memories')
                 .insert([
                     { image_id: imageId, author_name: authorName, memory_text: memoryText }
