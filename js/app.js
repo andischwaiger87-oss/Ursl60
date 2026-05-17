@@ -71,8 +71,12 @@ const renderTimeline = () => {
                     </span>
                     <h2 class="font-headline-sm text-[28px] text-primary mb-4 flex items-center gap-3 justify-center ${isLeft ? 'md:justify-start' : 'md:justify-end'}">
                         ${imgObj.title_text}
-                        <button onclick='openImageModal(${JSON.stringify(imgObj).replace(/'/g, "&#39;")})' class="admin-action" title="Bild-Titel bearbeiten">✏️</button>
-                        <button onclick='deleteImage("${imgObj.id}")' class="admin-action text-red-500/50 hover:text-red-500" title="Bild löschen">🗑️</button>
+                        <button onclick='openImageModal(${JSON.stringify(imgObj).replace(/'/g, "&#39;")})' class="admin-action text-secondary hover:text-primary transition-colors flex items-center" title="Bild-Titel bearbeiten">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                        </button>
+                        <button onclick='deleteImage("${imgObj.id}")' class="admin-action text-red-400 hover:text-red-600 transition-colors flex items-center" title="Bild löschen">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        </button>
                     </h2>
                     
                     ${memoriesHtml}
@@ -120,9 +124,13 @@ const appendMemoryToDOM = (imageId, memory) => {
             <div class="flex items-baseline gap-3 mb-1 justify-center md:justify-start relative">
                 <span class="font-headline-sm text-lg text-primary">${memory.author_name}</span>
                 <span class="font-label-sm text-[10px] text-secondary tracking-widest">${dateString}</span>
-                <div class="flex gap-2 ml-2 opacity-0 group-hover/mem:opacity-100 transition-opacity">
-                    <button onclick='openMemoryModal("${imageId}", ${JSON.stringify(memory).replace(/'/g, "&#39;")})' class="admin-action text-[12px]" title="Bearbeiten">✏️</button>
-                    <button onclick='deleteMemory("${memory.id}")' class="admin-action text-[12px] text-red-500/50 hover:text-red-500" title="Löschen">🗑️</button>
+                <div class="flex gap-3 ml-3 opacity-0 group-hover/mem:opacity-100 transition-opacity items-center">
+                    <button onclick='openMemoryModal("${imageId}", ${JSON.stringify(memory).replace(/'/g, "&#39;")})' class="admin-action text-secondary hover:text-primary transition-colors flex items-center" title="Bearbeiten">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                    </button>
+                    <button onclick='deleteMemory("${memory.id}")' class="admin-action text-red-400 hover:text-red-600 transition-colors flex items-center" title="Löschen">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    </button>
                 </div>
             </div>
             <p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed">
@@ -312,13 +320,11 @@ const initImageModal = () => {
                 sortInput.value = editImgObj.sort_order;
                 editIdInput.value = editImgObj.id;
                 title.textContent = "Bild bearbeiten";
-                sortContainer.classList.remove('hidden');
             } else {
                 form.reset();
                 editIdInput.value = '';
                 sortInput.value = (galleryImages.length > 0 ? Math.max(...galleryImages.map(i => i.sort_order)) + 1 : 1);
                 title.textContent = "Bild hinzufügen";
-                sortContainer.classList.add('hidden');
             }
 
             modal.classList.remove('hidden');
