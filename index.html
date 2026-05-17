@@ -43,7 +43,6 @@
         .font-body-lg { font-family: 'Geist', sans-serif; }
         .font-label-sm { font-family: 'Geist', sans-serif; }
         
-        /* Subtle interactive micro-depth */
         .image-card {
             transition: box-shadow 0.4s ease, transform 0.4s ease;
             box-shadow: 0 4px 20px rgba(0,0,0,0.04);
@@ -54,7 +53,6 @@
             transform: translateY(-4px) scale(1.01);
         }
         
-        /* Scroll Reveal Animation */
         .scroll-reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -65,7 +63,6 @@
             transform: translateY(0);
         }
 
-        /* Memory Entry Animation */
         .memory-entry {
             animation: fadeIn 0.5s ease forwards;
         }
@@ -73,6 +70,9 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        .admin-action { cursor: pointer; transition: opacity 0.2s; opacity: 0.3; }
+        .admin-action:hover { opacity: 1; }
     </style>
     <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -81,7 +81,7 @@
 
     <!-- Hero Section -->
     <section class="relative w-full h-screen flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 z-0 bg-cover bg-center" style="background-image: url('ursula.jpg');"></div>
+        <div class="absolute inset-0 z-0 bg-cover bg-center" style="background-image: url('29.jpg');"></div>
         <div class="absolute inset-0 z-10 bg-gradient-to-b from-transparent to-tertiary/60"></div>
         <div class="relative z-20 text-center flex flex-col items-center px-margin-mobile md:px-margin-desktop mt-32">
             <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-[80px] tracking-[0.2em] text-on-primary uppercase mb-6 drop-shadow-lg">URSULA</h1>
@@ -93,18 +93,21 @@
     </section>
 
     <main class="flex-grow" id="gallery">
-        <!-- Vertical Timeline Gallery -->
         <section class="relative w-full max-w-container-max mx-auto py-32 px-margin-mobile md:px-margin-desktop">
-            <!-- Central Line -->
             <div class="absolute left-1/2 top-0 bottom-0 w-vertical-line-width bg-outline-variant/50 transform -translate-x-1/2 hidden md:block"></div>
 
-            <!-- Dynamischer Timeline Container -->
             <div id="timeline-container"></div>
             
             <div id="loading-indicator" class="text-center text-secondary font-label-sm uppercase tracking-widest my-16">
                 Lade Bilder und Erinnerungen...
             </div>
 
+            <!-- Admin Button Neues Bild -->
+            <div class="text-center mt-32 relative z-20">
+                <button onclick="openImageModal(null)" class="border border-outline-variant/50 text-secondary px-8 py-4 rounded-lg hover:bg-surface-container-low hover:text-primary transition-all duration-300 font-label-sm text-[11px] uppercase tracking-[0.15em] backdrop-blur-sm bg-surface-container-lowest">
+                    + Neues Bild zur Timeline hinzufügen
+                </button>
+            </div>
         </section>
     </main>
 
@@ -126,15 +129,16 @@
         <img id="lightbox-img" src="" alt="" class="max-h-[85vh] max-w-[90vw] object-contain rounded shadow-2xl scale-95 transition-all duration-700 ease-out">
     </div>
 
-    <!-- Modal für neue Erinnerung -->
+    <!-- Modal für neue/edit Erinnerung -->
     <div id="memory-modal" class="fixed inset-0 z-50 bg-[#0a0a0a]/60 hidden flex flex-col items-center justify-center opacity-0 transition-opacity duration-300 backdrop-blur-md">
         <div class="bg-surface-container-lowest p-8 md:p-12 rounded-xl shadow-2xl max-w-lg w-full mx-4 relative transform scale-95 transition-transform duration-300">
             <button id="memory-modal-close" class="absolute top-6 right-6 text-secondary hover:text-primary transition-colors text-3xl font-light leading-none focus:outline-none">&times;</button>
-            <h3 class="font-headline-sm text-2xl mb-2 text-primary">Erinnerung teilen</h3>
+            <h3 class="font-headline-sm text-2xl mb-2 text-primary" id="memory-modal-title">Erinnerung teilen</h3>
             <p class="font-body-md text-secondary mb-8 text-[15px]">Hinterlasse eine persönliche Nachricht, Anekdote oder einen Glückwunsch zu diesem Foto.</p>
             
             <form id="memory-form" class="flex flex-col gap-5">
                 <input type="hidden" id="memory-image-id">
+                <input type="hidden" id="memory-edit-id">
                 
                 <div>
                     <label for="author-name" class="block font-label-sm text-[11px] uppercase tracking-widest text-secondary mb-2">Dein Name</label>
@@ -154,8 +158,58 @@
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="js/config.js"></script>
+    <!-- Modal für Bild Upload / Edit -->
+    <div id="image-modal" class="fixed inset-0 z-50 bg-[#0a0a0a]/60 hidden flex flex-col items-center justify-center opacity-0 transition-opacity duration-300 backdrop-blur-md">
+        <div class="bg-surface-container-lowest p-8 md:p-12 rounded-xl shadow-2xl max-w-lg w-full mx-4 relative transform scale-95 transition-transform duration-300">
+            <button id="image-modal-close" class="absolute top-6 right-6 text-secondary hover:text-primary transition-colors text-3xl font-light leading-none focus:outline-none">&times;</button>
+            <h3 class="font-headline-sm text-2xl mb-2 text-primary" id="image-modal-title">Bild hinzufügen</h3>
+            <p class="font-body-md text-secondary mb-8 text-[15px]">Hinterlege ein neues Bild für die Timeline oder passe die Texte an.</p>
+            
+            <form id="image-form" class="flex flex-col gap-5">
+                <input type="hidden" id="image-edit-id">
+                
+                <div>
+                    <label for="image-filename" class="block font-label-sm text-[11px] uppercase tracking-widest text-secondary mb-2">Dateiname (z.B. 30.jpg)</label>
+                    <input type="text" id="image-filename" required class="w-full border border-outline-variant/50 rounded-lg p-3 font-body-md text-primary bg-surface-container-lowest focus:outline-none focus:border-primary transition-colors" placeholder="30.jpg">
+                </div>
+                
+                <div>
+                    <label for="image-year" class="block font-label-sm text-[11px] uppercase tracking-widest text-secondary mb-2">Jahr / Ereignis</label>
+                    <input type="text" id="image-year" required class="w-full border border-outline-variant/50 rounded-lg p-3 font-body-md text-primary bg-surface-container-lowest focus:outline-none focus:border-primary transition-colors" placeholder="z.B. 1980">
+                </div>
+
+                <div>
+                    <label for="image-title" class="block font-label-sm text-[11px] uppercase tracking-widest text-secondary mb-2">Titel des Bildes</label>
+                    <input type="text" id="image-title" required class="w-full border border-outline-variant/50 rounded-lg p-3 font-body-md text-primary bg-surface-container-lowest focus:outline-none focus:border-primary transition-colors" placeholder="z.B. Urlaub in Italien">
+                </div>
+
+                <div class="hidden" id="image-sort-container">
+                    <label for="image-sort" class="block font-label-sm text-[11px] uppercase tracking-widest text-secondary mb-2">Sortierung (Nummer)</label>
+                    <input type="number" id="image-sort" required class="w-full border border-outline-variant/50 rounded-lg p-3 font-body-md text-primary bg-surface-container-lowest focus:outline-none focus:border-primary transition-colors" placeholder="10">
+                </div>
+                
+                <button type="submit" id="image-submit-btn" class="mt-2 bg-primary text-on-primary hover:bg-on-surface-variant transition-colors font-label-sm uppercase tracking-[0.15em] py-4 rounded-lg flex justify-center items-center">
+                    <span id="img-submit-text">Speichern</span>
+                    <span id="img-submit-spinner" class="hidden ml-3 w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Password Modal -->
+    <div id="admin-modal" class="fixed inset-0 z-[60] bg-[#0a0a0a]/80 hidden flex flex-col items-center justify-center opacity-0 transition-opacity duration-300 backdrop-blur-lg">
+        <div class="bg-surface-container-lowest p-8 rounded-xl shadow-2xl max-w-sm w-full mx-4 relative transform scale-95 transition-transform duration-300 text-center">
+            <h3 class="font-headline-sm text-xl mb-2 text-primary">Admin-Bereich</h3>
+            <p class="font-body-md text-secondary mb-6 text-sm">Bitte gib das Admin-Passwort ein, um diese Aktion auszuführen.</p>
+            <input type="password" id="admin-password-input" class="w-full border border-outline-variant/50 rounded-lg p-3 font-body-md text-primary bg-surface-container-lowest focus:outline-none focus:border-primary transition-colors mb-4 text-center" placeholder="Passwort">
+            <div class="flex gap-4">
+                <button id="admin-cancel-btn" class="flex-1 py-3 border border-outline-variant/50 rounded-lg text-secondary font-label-sm uppercase tracking-widest hover:bg-surface-container-low transition-colors">Abbrechen</button>
+                <button id="admin-confirm-btn" class="flex-1 py-3 bg-primary text-on-primary rounded-lg font-label-sm uppercase tracking-widest hover:bg-on-surface-variant transition-colors">Bestätigen</button>
+            </div>
+            <p id="admin-error" class="text-red-500 text-xs mt-3 hidden">Falsches Passwort!</p>
+        </div>
+    </div>
+
     <script src="js/app.js"></script>
 </body>
 </html>
